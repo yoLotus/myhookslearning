@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.scss'
+import Dashboard from './components/dashboard.jsx'
+import useItemsList from './hooks/useItemsList'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import Store from './Store'
+
+const App = () => {
+  const [currentIndex, setCurrentIndex] = useState(-1)
+
+  return (
+    <Store.Provider
+      value={{
+        items: useItemsList(),
+        currentIndex,
+        setCurrentIndex
+      }}
+    >
+      <Dashboard />
+    </Store.Provider>
+  )
 }
 
-export default App;
+export default App
